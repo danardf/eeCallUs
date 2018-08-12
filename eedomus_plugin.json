@@ -1,5 +1,5 @@
 {
-	"plugin_id": "eecallus_stv",
+	"plugin_id": "eecallus",
 	"name_fr": "eeCallUs",
 	"icon": "freepbx.png",
 	"version": "1.0.0",
@@ -45,7 +45,7 @@
 		"module_id": "41",
 		"type": "http",
 		"name": "plugin.name",
-		"icon": "call.png",
+		"icon": "telephone.png",
 		"utilisation_id": "43",
 		"parameters": {
 			"value_type": "list",
@@ -58,8 +58,30 @@
 			"RAW_XPATH": "/eedomus/result",
 			"POLLING": "3"
 		},
-		"values": [
-
+		"values": [{
+				"value": "0",
+				"description": "Call",
+				"icon": "telephone.png",
+				"http_url": "http://localhost/script/?exec=eeCallUs.php&ip=[VAR1]&port=[VAR2]&user=[VAR3]&secret=[VAR4]&from=&to=&msg=&drv=",
+				"http_type": "GET",
+				"http_params": ""
+			},
+			{
+				"value": "1",
+				"description": "Annonce",
+				"icon": "annonce.png",
+				"http_url": "http://localhost/script/?exec=eeCallUs.php&ip=[VAR1]&port=[VAR2]&user=[VAR3]&secret=[VAR4]&from=&to=&msg=&drv=",
+				"http_type": "GET",
+				"http_params": ""
+			},
+			{
+				"value": "2",
+				"description": "Message",
+				"icon": "message.png",
+				"http_url": "http://localhost/script/?exec=eeCallUs.php&ip=[VAR1]&port=[VAR2]&user=[VAR3]&secret=[VAR4]&from=&to=&msg=&drv=",
+				"http_type": "GET",
+				"http_params": ""
+			}
 		]
 	}]
 }
