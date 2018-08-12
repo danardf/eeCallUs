@@ -32,7 +32,7 @@
 		},
 		{
 			"parameter": "secret",
-			"description": "Port AMI du serveur Asterisk",
+			"description": "Mot de passe de l'utilisateur",
 			"xtype": "textfield",
 			"field": "width:300, allowBlank:false, maskRe:/[a-zA-Z0-9]/, regex:/^[a-zA-Z0-9]+$/, regexText:'Code scret invalide.'"
 		}
