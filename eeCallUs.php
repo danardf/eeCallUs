@@ -11,19 +11,19 @@
 	/* 
 		Init vars
 	*/
-	$address 		= getArg('ip');
+	$address 	= getArg('ip');
 	$port 	        = getArg('port');
-	$user 			= getArg('user');
-	$secret 		= getArg('secret');
-	$from 			= getArg('from');
-	$to 			= getArg('to'); 
+	$user 		= getArg('user');
+	$secret 	= getArg('secret');
+	$from 		= getArg('from');
+	$to 		= getArg('to'); 
 	$message        = utf8_encode(getArg('msg'));
 	$driver         = getArg('drv');
 	$response		= False;
 	
-	/*
-	    Vérification de certains arguments
-	*/
+    /*
+	Vérification de certains arguments
+    */
 
     if (empty($address)){
         $err        = "Il manque d'adresse IP.";
@@ -74,7 +74,7 @@
 		/* 
 			Login to Asterisk Server through AMI 
 		*/
-		$login  	= "Action: login\r\n";
+		$login      = "Action: login\r\n";
 		$login     .= "Username: $user\r\n";
 		$login     .= "Secret: $secret\r\n";
 		$login 	   .= "Events: off\r\n\r\n";
@@ -99,7 +99,7 @@
 			/* 
 				Lets make a call 
 			*/
-			$request  	= "Action: Originate\r\n";
+			$request    = "Action: Originate\r\n";
 			$request   .= "Channel: Local/$from\r\n";
 			$request   .= "Context: from-internal\r\n";
 			$request   .= "Exten: $to\r\n";
@@ -108,8 +108,8 @@
 			$request   .= "Callerid: $to\r\n\r\n";
 		
 			socket_write($socket, $request, strlen($request));
-			$in			= socket_read($socket, 2048);
-			$in			= socket_read($socket, 2048);
+			$in	    = socket_read($socket, 2048);
+			$in	    = socket_read($socket, 2048);
 			if(strpos($in,"Success") === False && strpos($in,"Originate successfully queued") === False){
 				echo "Appel échouée!\n";
 			}
@@ -118,14 +118,14 @@
 			}        
 		}
 		else{
-			$request  	= "Action: MessageSend\r\n";
+			$request    = "Action: MessageSend\r\n";
 			$request   .= "To: $driver:$to\r\n";
 			$request   .= "From: <eedomus>\r\n";
 			$request   .= "Body: $message\r\n\r\n";
 
 			socket_write($socket, $request, strlen($request));
-			$in			= socket_read($socket, 2048);
-			$in			= socket_read($socket, 2048);
+			$in	    = socket_read($socket, 2048);
+			$in	    = socket_read($socket, 2048);
 			
 			if(strpos($in,"Success") === False && strpos($in,"Message successfully sent") === False){
 				echo "Envoi message échouée!\n";
@@ -141,8 +141,8 @@
 		*/
 		socket_close($socket);       
     }
-	else{
-	    /* Il manque un ou plusieurs arguments */
-		echo $err;
-	}
+    else{
+	/* Il manque un ou plusieurs arguments */
+	echo $err;
+    }
 ?>
