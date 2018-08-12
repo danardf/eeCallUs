@@ -1,6 +1,6 @@
 # eeCallUs
 Plugin pour boitier domotic eeDomus
-'Ce plugin a été testé uniquement avec un serveur Freepbx version 14)
+*(Ce plugin a été testé uniquement avec un serveur Freepbx version 14)*
 
 ## Prérequis.
 - Il vous faudra bien sure un server Asterisk version supérieure ou égale à 11.
