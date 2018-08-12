@@ -51,6 +51,10 @@ Les arguments à passer avec l'URL sont:
 ## Les liens utiles
 
 https://www.freepbx.org/
+
 https://www.voip-info.org/asterisk-manager-api/
+
 https://www.voip-info.org/asterisk-config-managerconf/
+
 https://wiki.asterisk.org/wiki/display/AST/Home
+
