@@ -17,11 +17,11 @@
 	$to 			= getArg('to',$mandatory = true); 
 	$message        = utf8_encode(getArg('msg'),$mandatory = false);
 	if(empty($message)){
-		$from 		= getArg('from',$mandatory = true);
+		$call_from	= getArg('call_from',$mandatory = true);
 		$driver     = strtolower(getArg('drv'),$mandatory = false);
 	}
 	else{
-		$from 		= getArg('from',$mandatory = false);
+		$call_from 	= getArg('call_from',$mandatory = false);
 		$driver     = strtolower(getArg('drv'),$mandatory = true);
 	}
 	$response		= False;
@@ -105,7 +105,7 @@
 				Lets make a call 
 			*/
 			$request    = "Action: Originate\r\n";
-			$request   .= "Channel: Local/".$from."\r\n";
+			$request   .= "Channel: Local/".$call_from."\r\n";
 			$request   .= "Context: from-internal\r\n";
 			$request   .= "Exten: ".$to."\r\n";
 			$request   .= "Priority: 1\r\n";
