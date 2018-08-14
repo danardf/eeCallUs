@@ -5,24 +5,29 @@
         serveur VoIP Asterisk / Freepbx.
         Il utilise un lien AMI pour que l'eedomus puisse envoyer un ordre.
     */
-
 	error_reporting(0);
 	
 	/* 
 		Init vars
 	*/
-	$address 	= getArg('ip');
-	$port 	        = getArg('port');
-	$user 		= getArg('user');
-	$secret 	= getArg('secret');
-	$from 		= getArg('from');
-	$to 		= getArg('to'); 
-	$message        = utf8_encode(getArg('msg'));
-	$driver         = getArg('drv');
+	$address 		= getArg('ip',$mandatory = true);
+	$port 	        = getArg('port',$mandatory = false);
+	$user 			= getArg('user',$mandatory = true);
+	$secret 		= getArg('secret',$mandatory = true);
+	$to 			= getArg('to',$mandatory = true); 
+	$message        = utf8_encode(getArg('msg'),$mandatory = false);
+	if(empty($message)){
+		$from 		= getArg('from',$mandatory = true);
+		$driver     = strtolower(getArg('drv'),$mandatory = false);
+	}
+	else{
+		$from 		= getArg('from',$mandatory = false);
+		$driver     = strtolower(getArg('drv'),$mandatory = true);
+	}
 	$response		= False;
 	
     /*
-	Vérification de certains arguments
+		Vérification de certains arguments
     */
 
     if (empty($address)){
@@ -53,7 +58,7 @@
 		/* 
 			Initialisation du socket vers le serveur Asterisk
 		*/
-		$socket 		= socket_create(AF_INET, SOCK_STREAM, SOL_TCP);
+		$socket 	= socket_create(AF_INET, SOCK_STREAM, SOL_TCP);
 		if ($socket === false) {
 			echo "Erreur socket_create(). Raison : ".socket_strerror(socket_last_error())."\n";
 		} 
@@ -63,7 +68,7 @@
 			echo "Erreur socket_connect(). Raison : $result - ".socket_strerror(socket_last_error($socket))."\n";
 		} 
 		
-		$in 	= socket_read($socket, 2048);
+		$in 		= socket_read($socket, 2048);
 		if(strpos($in,"Asterisk Call Manager") === False){
 			echo "Serveur Asterisk non reconnu. Mais bon, essayons...\n";
 		}
@@ -75,8 +80,8 @@
 			Login to Asterisk Server through AMI 
 		*/
 		$login      = "Action: login\r\n";
-		$login     .= "Username: $user\r\n";
-		$login     .= "Secret: $secret\r\n";
+		$login     .= "Username: ".$user."\r\n";
+		$login     .= "Secret: ".$secret."\r\n";
 		$login 	   .= "Events: off\r\n\r\n";
 		socket_write($socket, $login, strlen($login));
 		
@@ -100,16 +105,16 @@
 				Lets make a call 
 			*/
 			$request    = "Action: Originate\r\n";
-			$request   .= "Channel: Local/$from\r\n";
+			$request   .= "Channel: Local/".$from."\r\n";
 			$request   .= "Context: from-internal\r\n";
-			$request   .= "Exten: $to\r\n";
+			$request   .= "Exten: ".$to."\r\n";
 			$request   .= "Priority: 1\r\n";
 			$request   .= "Timeout: 30000\r\n";
-			$request   .= "Callerid: $to\r\n\r\n";
+			$request   .= "Callerid: ".$to."\r\n\r\n";
 		
 			socket_write($socket, $request, strlen($request));
-			$in	    = socket_read($socket, 2048);
-			$in	    = socket_read($socket, 2048);
+			$in	    	= socket_read($socket, 2048);
+			$in	    	= socket_read($socket, 2048);
 			if(strpos($in,"Success") === False && strpos($in,"Originate successfully queued") === False){
 				echo "Appel échouée!\n";
 			}
@@ -119,13 +124,13 @@
 		}
 		else{
 			$request    = "Action: MessageSend\r\n";
-			$request   .= "To: $driver:$to\r\n";
+			$request   .= "To: ".$driver.":".$to."\r\n";
 			$request   .= "From: <eedomus>\r\n";
-			$request   .= "Body: $message\r\n\r\n";
+			$request   .= "Body: ".$message."\r\n\r\n";
 
 			socket_write($socket, $request, strlen($request));
-			$in	    = socket_read($socket, 2048);
-			$in	    = socket_read($socket, 2048);
+			$in	    	= socket_read($socket, 2048);
+			$in	    	= socket_read($socket, 2048);
 			
 			if(strpos($in,"Success") === False && strpos($in,"Message successfully sent") === False){
 				echo "Envoi message échouée!\n";
@@ -134,7 +139,6 @@
 				echo "Envoi message effectué.\n";
 			} 
 		}
-
 		
 		/* 
 			Close socket 
@@ -142,7 +146,7 @@
 		socket_close($socket);       
     }
     else{
-	/* Il manque un ou plusieurs arguments */
-	echo $err;
+		/* Il manque un ou plusieurs arguments */
+		echo $err;
     }
 ?>

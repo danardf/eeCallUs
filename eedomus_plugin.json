@@ -22,6 +22,7 @@
 			"parameter": "port",
 			"description": "Port AMI du serveur Asterisk",
 			"xtype": "textfield",
+			"default_value": "5038",
 			"field": "width:300, allowBlank:false, maskRe:/[0-9]/, regex:/^[0-9]{4,5}$/, regexText:'port invalide, doit avoir de 4 à 5 digits.'"
 		},
 		{
@@ -53,34 +54,34 @@
 			"VAR2": "plugin.parameters.port",
 			"VAR3": "plugin.parameters.user",
 			"VAR4": "plugin.parameters.secret",
-			"ignore_errors": 1,
+			"ignore_errors": 3,
 			"RAW_URL": "http://localhost/tools/?action=ping&ip=[VAR1]",
 			"RAW_XPATH": "/eedomus/result",
-			"POLLING": "3"
+			"POLLING": "1"
 		},
 		"values": [{
 				"value": "0",
 				"description": "Call",
 				"icon": "telephone.png",
-				"http_url": "http://localhost/script/?exec=eeCallUs.php&ip=[VAR1]&port=[VAR2]&user=[VAR3]&secret=[VAR4]&from=&to=&msg=&drv=",
+				"http_url": "http://localhost/script/?exec=eeCallUs.php&ip=[VAR1]&port=[VAR2]&user=[VAR3]&secret=[VAR4]",
 				"http_type": "GET",
-				"http_params": ""
+				"http_params": "&from=&to="
 			},
 			{
 				"value": "1",
 				"description": "Annonce",
 				"icon": "annonce.png",
-				"http_url": "http://localhost/script/?exec=eeCallUs.php&ip=[VAR1]&port=[VAR2]&user=[VAR3]&secret=[VAR4]&from=&to=&msg=&drv=",
+				"http_url": "http://localhost/script/?exec=eeCallUs.php&ip=[VAR1]&port=[VAR2]&user=[VAR3]&secret=[VAR4]",
 				"http_type": "GET",
-				"http_params": ""
+				"http_params": "&from=&to"
 			},
 			{
 				"value": "2",
 				"description": "Message",
 				"icon": "message.png",
-				"http_url": "http://localhost/script/?exec=eeCallUs.php&ip=[VAR1]&port=[VAR2]&user=[VAR3]&secret=[VAR4]&from=&to=&msg=&drv=",
+				"http_url": "http://localhost/script/?exec=eeCallUs.php&ip=[VAR1]&port=[VAR2]&user=[VAR3]&secret=[VAR4]",
 				"http_type": "GET",
-				"http_params": ""
+				"http_params": "&to=&msg=&drv="
 			}
 		]
 	}]
