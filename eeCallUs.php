@@ -10,20 +10,14 @@
 	/* 
 		Init vars
 	*/
-	$address 		= getArg('ip',$mandatory = true);
-	$port 	        = getArg('port',$mandatory = false);
-	$user 			= getArg('user',$mandatory = true);
-	$secret 		= getArg('secret',$mandatory = true);
-	$to 			= getArg('to',$mandatory = true); 
-	$message        = utf8_encode(getArg('msg'),$mandatory = false);
-	if(empty($message)){
-		$call_from	= getArg('call_from',$mandatory = true);
-		$driver     = strtolower(getArg('drv'),$mandatory = false);
-	}
-	else{
-		$call_from 	= getArg('call_from',$mandatory = false);
-		$driver     = strtolower(getArg('drv'),$mandatory = true);
-	}
+	$address 		= getArg('ip');
+	$port 	        = getArg('port');
+	$user 			= getArg('user');
+	$secret 		= getArg('secret');
+	$to 			= getArg('to'); 
+	$message        = utf8_encode(getArg('msg'));
+	$call_from		= getArg('call_from');
+	$driver     	= strtolower(getArg('drv'));
 	$response		= False;
 	
     /*

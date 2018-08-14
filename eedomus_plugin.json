@@ -44,11 +44,10 @@
 		"parameters": {
 			"value_type": "list",
 			"VAR1": "plugin.parameters.ip",
-			"VAR2": "plugin.parameters.port",
-			"VAR3": "plugin.parameters.user",
-			"VAR4": "plugin.parameters.secret",
+			"VAR2": "plugin.parameters.user",
+			"VAR3": "plugin.parameters.secret",
 			"ignore_errors": 3,
-			"RAW_URL": "http://localhost/tools/?action=ping&ip=[VAR1]",
+			"RAW_URL": "http://localhost/tools/?action=ping&url=[VAR1]",
 			"RAW_XPATH": "/eedomus/result",
 			"POLLING": "1"
 		},
@@ -56,25 +55,25 @@
 				"value": "0",
 				"description": "Call",
 				"icon": "telephone.png",
-				"http_url": "http://localhost/script/?exec=eeCallUs.php&ip=[VAR1]&user=[VAR2]&secret=[VAR3]",
+				"http_url": "http://localhost/script/?exec=eeCallUs.php&ip=[VAR1]&user=[VAR2]&secret=[VAR3]&port=&call_from=&to=&msg=&drv=",
 				"http_type": "GET",
-				"http_params": "&call_from=&to="
+				"http_params": ""
 			},
 			{
 				"value": "1",
 				"description": "Annonce",
 				"icon": "annonce.png",
-				"http_url": "http://localhost/script/?exec=eeCallUs.php&ip=[VAR1]&user=[VAR2]&secret=[VAR3]",
+				"http_url": "http://localhost/script/?exec=eeCallUs.php&ip=[VAR1]&user=[VAR2]&secret=[VAR3]&port=&call_from=&to=&msg=&drv=",
 				"http_type": "GET",
-				"http_params": "&call_from=&to"
+				"http_params": ""
 			},
 			{
 				"value": "2",
 				"description": "Message",
 				"icon": "message.png",
-				"http_url": "http://localhost/script/?exec=eeCallUs.php&ip=[VAR1]&user=[VAR2]&secret=[VAR3]",
+				"http_url": "http://localhost/script/?exec=eeCallUs.php&ip=[VAR1]&user=[VAR2]&secret=[VAR3]&port=&call_from=&to=&msg=Test message&drv=sip",
 				"http_type": "GET",
-				"http_params": "&to=&msg=&drv="
+				"http_params": ""
 			}
 		]
 	}]
